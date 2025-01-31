@@ -1,3 +1,4 @@
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
@@ -84,6 +85,19 @@ public class Main {
             System.out.println("File was not found");
             System.exit(1);
         }
+
+        int totalValue = 0;
+        int totalValueWithWildJacks = 0; // New total for wild Jacks
+
+        for (int i = 0; i < hands.size(); i++) {
+            int rank = i + 1; // Rank starts at 1 for the weakest hand
+            totalValue += hands.get(i).getBid() * rank;
+
+            // Recalculate hand type with Jacks wild
+            hands.get(i).evaluateHand();
+            totalValueWithWildJacks += hands.get(i).getBid() * rank;
+        }
+
     }
 
     // Helper method to get the strength of a hand type
@@ -106,7 +120,7 @@ public class Main {
             case "Ace" -> 14;
             case "King" -> 13;
             case "Queen" -> 12;
-            case "Jack" -> 11;
+            case "Jack" -> 1;
             case "10" -> 10;
             case "9" -> 9;
             case "8" -> 8;
@@ -119,4 +133,6 @@ public class Main {
             default -> 0;
         };
     }
+
+
 }
