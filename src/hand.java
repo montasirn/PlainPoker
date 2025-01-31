@@ -1,4 +1,3 @@
-
 class Hand {
     private int num2;
     private int num3;
@@ -50,16 +49,6 @@ class Hand {
         boolean threeOfAKind = false;
         boolean fourOfAKind = false;
         boolean fiveOfAKind = false;
-        int numOfJacks = numJack;
-        int mostCommonCard = 0;
-
-        for (int i = 0; i < counts.length - 1; i++) {
-            if (counts[i] > mostCommonCard) {
-                mostCommonCard = counts[i];
-            }
-
-        }
-        mostCommonCard+=numOfJacks;
 
         for (int count : counts) {
             if (count == 2) pairs++;
@@ -68,17 +57,11 @@ class Hand {
             if (count == 5) fiveOfAKind = true;
         }
 
-
-
-        if (mostCommonCard == 5) {
+        if (fiveOfAKind) {
             type = "Five of a kind";
-        } else if (mostCommonCard == 4) {
+        } else if (fourOfAKind) {
             type = "Four of a kind";
-        }  else if (mostCommonCard == 3) {
-            if (numOfJacks == 1)
-                type = "Four of a kind";
-        }
-            else if (threeOfAKind && pairs == 1) {
+        } else if (threeOfAKind && pairs == 1) {
             type = "Full house";
         } else if (threeOfAKind) {
             type = "Three of a kind";
