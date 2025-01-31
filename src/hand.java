@@ -44,7 +44,7 @@ class Hand {
     }
 
     public String evaluateHand() {
-        int[] counts = {num2, num3, num4, num5, num6, num7, num8, num9, num10, numKing, numQueen, numAce, numJack};
+        int[] counts = {num2, num3, num4, num5, num6, num7, num8, num9, num10, numKing, numQueen, numJack, numAce};
 
         int pairs = 0;
         boolean threeOfAKind = false;
