@@ -64,12 +64,14 @@ public class Main {
 
             // Calculate total bid value
             int totalValue = 0;
-            for (int i = 0; i < hands.size(); i++) {
-                int rank = i + 1; // Rank starts at 1 for the weakest hand
-                totalValue += hands.get(i).getBid() * rank;
+            int rank = hands.size();
+            for (Hand line : hands){
+                totalValue += line.getBid() * rank;
+                rank --;
             }
 
             // Print Part 1 results
+
             System.out.println("Number of five of a kind hands: " + fiveOfAKind);
             System.out.println("Number of full house hands: " + fullHouse);
             System.out.println("Number of four of a kind hands: " + fourOfAKind);
@@ -86,17 +88,6 @@ public class Main {
             System.exit(1);
         }
 
-        int totalValue = 0;
-        int totalValueWithWildJacks = 0; // New total for wild Jacks
-
-        for (int i = 0; i < hands.size(); i++) {
-            int rank = i + 1; // Rank starts at 1 for the weakest hand
-            totalValue += hands.get(i).getBid() * rank;
-
-            // Recalculate hand type with Jacks wild
-            hands.get(i).evaluateHand();
-            totalValueWithWildJacks += hands.get(i).getBid() * rank;
-        }
 
     }
 
@@ -120,7 +111,7 @@ public class Main {
             case "Ace" -> 14;
             case "King" -> 13;
             case "Queen" -> 12;
-            case "Jack" -> 1;
+            case "Jack" -> 11;
             case "10" -> 10;
             case "9" -> 9;
             case "8" -> 8;
