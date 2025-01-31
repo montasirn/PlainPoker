@@ -1,3 +1,4 @@
+
 class Hand {
     private int num2;
     private int num3;
@@ -43,12 +44,22 @@ class Hand {
     }
 
     public String evaluateHand() {
-        int[] counts = {num2, num3, num4, num5, num6, num7, num8, num9, num10, numKing, numQueen, numJack, numAce};
+        int[] counts = {num2, num3, num4, num5, num6, num7, num8, num9, num10, numKing, numQueen, numAce, numJack};
 
         int pairs = 0;
         boolean threeOfAKind = false;
         boolean fourOfAKind = false;
         boolean fiveOfAKind = false;
+        int numOfJacks = numJack;
+        int mostCommonCard = 0;
+
+        for (int i = 0; i < counts.length - 1; i++) {
+            if (counts[i] > mostCommonCard) {
+                mostCommonCard = counts[i];
+            }
+
+        }
+        mostCommonCard+=numOfJacks;
 
         for (int count : counts) {
             if (count == 2) pairs++;
@@ -57,11 +68,17 @@ class Hand {
             if (count == 5) fiveOfAKind = true;
         }
 
-        if (fiveOfAKind) {
+
+
+        if (mostCommonCard == 5) {
             type = "Five of a kind";
-        } else if (fourOfAKind) {
+        } else if (mostCommonCard == 4) {
             type = "Four of a kind";
-        } else if (threeOfAKind && pairs == 1) {
+        }  else if (mostCommonCard == 3) {
+            if (numOfJacks == 1)
+                type = "Four of a kind";
+        }
+            else if (threeOfAKind && pairs == 1) {
             type = "Full house";
         } else if (threeOfAKind) {
             type = "Three of a kind";
