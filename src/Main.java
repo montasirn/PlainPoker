@@ -111,7 +111,7 @@ public class Main {
             case "Ace" -> 14;
             case "King" -> 13;
             case "Queen" -> 12;
-            case "Jack" -> 11;
+            case "Jack" -> 1;
             case "10" -> 10;
             case "9" -> 9;
             case "8" -> 8;
