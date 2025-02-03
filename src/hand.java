@@ -43,38 +43,62 @@ class Hand {
     }
 
     public String evaluateHand() {
-        int[] counts = {num2, num3, num4, num5, num6, num7, num8, num9, num10, numKing, numQueen, numJack, numAce};
+        int[] counts = {num2, num3, num4, num5, num6, num7, num8, num9, num10, numKing, numQueen, numAce, numJack};
 
         int pairs = 0;
         boolean threeOfAKind = false;
         boolean fourOfAKind = false;
         boolean fiveOfAKind = false;
+        boolean fullHouse = false;
+        boolean twoPair = false;
+        boolean onePair = false;
+        boolean highCard = false;
+        int num = 0;
+
+        for (int i = 0; i < counts.length - 1; i++) {
+            if (counts[i] > num) {
+                num = counts[i];
+            }
+        }
 
         for (int count : counts) {
             if (count == 2) pairs++;
-            if (count == 3) threeOfAKind = true;
-            if (count == 4) fourOfAKind = true;
-            if (count == 5) fiveOfAKind = true;
+        }
+
+        if (num + numJack == 5) {
+            fiveOfAKind = true;
+        } else if (num + numJack == 4) {
+            fourOfAKind = true;
+        } else if (num + numJack == 3 && pairs == 0) {
+            threeOfAKind = true;
+        } else if (num + numJack == 3 && pairs == 1) {
+            fullHouse = true;
+        } else if (num == 2 && pairs == 2) {
+            twoPair = true;
+        } else if (num == 2 && pairs == 1) {
+            onePair = true;
+        } else {
+            highCard = true;
         }
 
         if (fiveOfAKind) {
             type = "Five of a kind";
         } else if (fourOfAKind) {
             type = "Four of a kind";
-        } else if (threeOfAKind && pairs == 1) {
+        } else if (fullHouse) {
             type = "Full house";
         } else if (threeOfAKind) {
             type = "Three of a kind";
-        } else if (pairs == 2) {
+        } else if (twoPair) {
             type = "Two pair";
-        } else if (pairs == 1) {
+        } else if (onePair) {
             type = "One pair";
-        } else {
+        } else if (highCard) {
             type = "High card";
         }
-
         return type;
     }
+
 
     public String[] getCards() {
         return cards;
