@@ -47,6 +47,40 @@ class Hand {
     }
 
     public String evaluateHand() {
+        int[] counts = {num2, num3, num4, num5, num6, num7, num8, num9, num10, numKing, numQueen, numJack, numAce};
+
+        int pairs = 0;
+        boolean threeOfAKind = false;
+        boolean fourOfAKind = false;
+        boolean fiveOfAKind = false;
+
+        for (int count : counts) {
+            if (count == 2) pairs++;
+            if (count == 3) threeOfAKind = true;
+            if (count == 4) fourOfAKind = true;
+            if (count == 5) fiveOfAKind = true;
+        }
+
+        if (fiveOfAKind) {
+            type = "Five of a kind";
+        } else if (fourOfAKind) {
+            type = "Four of a kind";
+        } else if (threeOfAKind && pairs == 1) {
+            type = "Full house";
+        } else if (threeOfAKind) {
+            type = "Three of a kind";
+        } else if (pairs == 2) {
+            type = "Two pair";
+        } else if (pairs == 1) {
+            type = "One pair";
+        } else {
+            type = "High card";
+        }
+
+        return type;
+    }
+
+    public String evalHandWithJack(){
         int[] counts = {num2, num3, num4, num5, num6, num7, num8, num9, num10, numKing, numQueen, numAce, numJack};
 
         int pairs = 0;
@@ -121,7 +155,7 @@ class Hand {
             case "Ace" -> 14;
             case "King" -> 13;
             case "Queen" -> 12;
-            case "Jack" -> 1;
+            case "Jack" -> 11;
             case "10" -> 10;
             case "9" -> 9;
             case "8" -> 8;
@@ -135,15 +169,23 @@ class Hand {
         };
     }
 
-    public static void sortArray(List<Hand> hands){
+    public static void sortArray(List<Hand> hands, boolean ifWild){
         hands.sort((h1, h2) -> {
-            int typeComparison = Integer.compare(getHandTypeStrength(h2.getType()), getHandTypeStrength(h1.getType()));
+            int num = getHandTypeStrength(h2.getType());
+            int num1 = getHandTypeStrength(h1.getType());
+            if (num == 11 && ifWild) num = 1;
+            if (num1 == 11 && ifWild) num1 = 1;
+            int typeComparison = Integer.compare(num, num1);
             if (typeComparison != 0) {
                 return typeComparison;
             }
             // If types are equal, compare card by card
             for (int i = 0; i < 5; i++) {
-                int cardComparison = Integer.compare(getCardStrength(h2.getCards()[i]), getCardStrength(h1.getCards()[i]));
+                int numIfJack = getCardStrength(h2.getCards()[i]);
+                int numIfJack1 = getCardStrength(h1.getCards()[i]);
+                if (numIfJack == 11 && ifWild) numIfJack = 1;
+                if (numIfJack1 == 11 && ifWild) numIfJack1 = 1;
+                int cardComparison = Integer.compare(numIfJack, numIfJack1);
                 if (cardComparison != 0) {
                     return cardComparison;
                 }
