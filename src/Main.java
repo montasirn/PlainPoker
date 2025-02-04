@@ -17,6 +17,7 @@ public class Main {
 
         // List to store hands and their bids for Part 2
         List<Hand> hands = new ArrayList<>();
+        List<Hand> handJ = new ArrayList<>();
 
         try {
             Scanner s = new Scanner(f);
@@ -30,6 +31,11 @@ public class Main {
                 hand.numCards();
                 String handType = hand.evaluateHand();
 
+                Hand hand1 = new Hand(cards, bid);
+                hand1.numCards();
+                String handTypeWild = hand1.evalHandWithJack();
+
+
                 // Increment the appropriate counter for Part 1
                 switch (handType) {
                     case "Five of a kind" -> fiveOfAKind++;
@@ -41,14 +47,20 @@ public class Main {
                     case "High card" -> highCard++;
                 }
 
+
+
                 // Add the hand to the list for Part 2
                 hands.add(hand);
+                handJ.add(hand1);
             }
 
-            Hand.sortArray(hands);
+            Hand.sortArray(hands, false);
+            Hand.sortArray(handJ, true);
+
 
             // Calculate total bid value\
             Hand.calculateBid(hands);
+            Hand.calculateBid(handJ);
 
             // Print Part 1 results
 
@@ -61,7 +73,13 @@ public class Main {
             System.out.println("Number of high card hands: " + highCard);
 
             // Print Part 2 result
+            Hand.calculateBid(hands);
             System.out.println("Total Bid Value: " + Hand.getTotalBid());
+
+
+            Hand.calculateBid(handJ);
+            System.out.println("Total Bid Value With Jacks Wild: " + Hand.getTotalBid());
+
 
         } catch (FileNotFoundException fe) {
             System.out.println("File was not found");
