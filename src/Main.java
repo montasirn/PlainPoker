@@ -54,11 +54,12 @@ public class Main {
                 handJ.add(hand1);
             }
 
+            // sorting for part 2 and part 3 respectively
             Hand.sortArray(hands, false);
             Hand.sortArray(handJ, true);
 
 
-            // Calculate total bid value\
+            // Calculate total bid value for part 2 and part 3 separately
             Hand.calculateBid(hands);
             Hand.calculateBid(handJ);
 
