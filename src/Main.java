@@ -27,10 +27,12 @@ public class Main {
                 String[] cards = parts[0].split(",");
                 int bid = Integer.parseInt(parts[1]);
 
+                //Create hand object for part 1 and 2
                 Hand hand = new Hand(cards, bid);
                 hand.numCards();
                 String handType = hand.evaluateHand();
 
+                //Create hand object for part 3
                 Hand hand1 = new Hand(cards, bid);
                 hand1.numCards();
                 String handTypeWild = hand1.evalHandWithJack();
@@ -47,24 +49,22 @@ public class Main {
                     case "High card" -> highCard++;
                 }
 
-
-
                 // Add the hand to the list for Part 2
                 hands.add(hand);
                 handJ.add(hand1);
             }
 
             // sorting for part 2 and part 3 respectively
+
             Hand.sortArray(hands, false);
             Hand.sortArray(handJ, true);
 
-
             // Calculate total bid value for part 2 and part 3 separately
+
             Hand.calculateBid(hands);
             Hand.calculateBid(handJ);
 
             // Print Part 1 results
-
             System.out.println("Number of five of a kind hands: " + fiveOfAKind);
             System.out.println("Number of full house hands: " + fullHouse);
             System.out.println("Number of four of a kind hands: " + fourOfAKind);
@@ -77,16 +77,15 @@ public class Main {
             Hand.calculateBid(hands);
             System.out.println("Total Bid Value: " + Hand.getTotalBid());
 
-
+            // Print Part 3 result
             Hand.calculateBid(handJ);
             System.out.println("Total Bid Value With Jacks Wild: " + Hand.getTotalBid());
 
-
+            //If input file is missing return error 1
         } catch (FileNotFoundException fe) {
             System.out.println("File was not found");
             System.exit(1);
         }
-
 
     }
 
